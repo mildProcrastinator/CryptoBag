@@ -45,10 +45,10 @@ public class DetailPage extends AppCompatActivity {
         change24h.setText(displayedCoin.getChange24h()+" %");
         change7d.setText(displayedCoin.getChange7d()+" %");
 
-        String marketCapS = coinCurrency.format(displayedCoin.getMarketcap());
-        marketCap.setText(marketCapS);
-        String volumeS = coinCurrency.format(displayedCoin.getVolume());
-        volume24h.setText(volumeS);
+        String marketCapS = coinCurrency.format(displayedCoin.getMarketcap()/1000000000);
+        marketCap.setText(marketCapS+" bn");
+        String volumeS = coinCurrency.format(displayedCoin.getVolume()/1000000000);
+        volume24h.setText(volumeS +" bn");
 
 
     }
