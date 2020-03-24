@@ -1,6 +1,9 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -17,38 +20,18 @@ public class DetailPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_page);
-
-
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-        String message = (String) extras.get("currency");
+        String coinName = (String) extras.get("currency");
 
-
-        Coin displayedCoin = Coin.returnCoin(message);
-
-        TextView coinName = findViewById(R.id.coinName);
-        TextView coinCode = findViewById(R.id.coinCode);
-        TextView coinValue = findViewById(R.id.coinValue);
-        TextView change1h = findViewById(R.id.change1h);
-        TextView change24h = findViewById(R.id.change24h);
-        TextView change7d = findViewById(R.id.change7d);
-        TextView marketCap = findViewById(R.id.marketcap);
-        TextView volume24h = findViewById(R.id.volume);
-
-        NumberFormat coinCurrency = NumberFormat.getCurrencyInstance();
-
-        coinName.setText(displayedCoin.getName());
-        coinCode.setText(displayedCoin.getSymbol());
-        String coinValueS = coinCurrency.format(displayedCoin.getValue());
-        coinValue.setText(coinValueS);
-        change1h.setText(displayedCoin.getChange1h()+" %");
-        change24h.setText(displayedCoin.getChange24h()+" %");
-        change7d.setText(displayedCoin.getChange7d()+" %");
-
-        String marketCapS = coinCurrency.format(displayedCoin.getMarketcap()/1000000000);
-        marketCap.setText(marketCapS+" bn");
-        String volumeS = coinCurrency.format(displayedCoin.getVolume()/1000000000);
-        volume24h.setText(volumeS +" bn");
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        Fragment fragment = new coinListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("cName", coinName);
+        fragment.setArguments(bundle);
+        transaction.replace(R.id.detail_fragment, fragment);
+        transaction.commit();
 
 
     }
