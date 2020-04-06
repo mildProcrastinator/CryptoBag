@@ -12,19 +12,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.example.myapplication.Entities.Coin;
 import com.example.myapplication.Entities.CoinLoreResponse;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     boolean inWide;
-
-    RecyclerView recyclerView;
-    RecyclerView.Adapter mAdapter;
-    RecyclerView.LayoutManager layoutManager;
-    /**Creating data set to populate list*/
-    ArrayList<CoinLoreResponse> coins = CoinLoreResponse.getCoins();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,53 +29,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        coins = CoinLoreResponse.getCoins();
-        Log.d(TAG, "onCreate: made array");
-
-        recyclerView = (RecyclerView) findViewById(R.id.coin_list_view);
-        recyclerView.setHasFixedSize(true);
-        Log.d(TAG, "onCreate: initialised up recyclerview");
-
-        /**creating and setting linear layout manager*/
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        Log.d(TAG, "onCreate: layout manager made");
-
         inWide = findViewById(R.id.detail_fragment) != null;
 
-        MyAdapter.RecyclerViewClickListener listener = new MyAdapter.RecyclerViewClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                if(inWide) {
-                    FragmentManager manager = getSupportFragmentManager();
-                    FragmentTransaction transaction = manager.beginTransaction();
-                    Fragment fragment = new coinListFragment();
-                    Bundle bundle = new Bundle();
-                    //bundle.putBoolean("inWide", inWide);
-                    bundle.putString("cName", coins.get(position).getName());
-                    fragment.setArguments(bundle);
-                    transaction.replace(R.id.detail_fragment, fragment);
-                    transaction.commit();
-                }else{
-                    changeActivities(view, coins.get(position).getName());
-                }
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.coin_list_view);
+        recyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
 
-            }
-        };
+        Gson gson = new Gson();
+        CoinLoreResponse response = gson.fromJson(CoinLoreResponse.json, CoinLoreResponse.class);
+        List<Coin> coins = response.getData();
 
-        Log.d(TAG, "onCreate: made listener");
-
-        mAdapter = new MyAdapter(coins, listener);
+        RecyclerView.Adapter mAdapter = new MyAdapter(this, coins, inWide);
         recyclerView.setAdapter(mAdapter);
     }
 
-    /**called when user taps a coin*/
-    public void changeActivities(View view, String coin) {
-
-        Log.d(TAG, "clickResponse: pressed " + coin);
-        Intent explicitIntent = new Intent(this, DetailPage.class);
-        explicitIntent.putExtra("currency",coin);
-        startActivity(explicitIntent);
-
-    }
 }
