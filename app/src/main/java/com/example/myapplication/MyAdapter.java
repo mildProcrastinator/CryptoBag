@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.w3c.dom.Text;
+import com.example.myapplication.Entities.CoinLoreResponse;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -17,10 +17,10 @@ import java.util.ArrayList;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private static final String TAG ="MyAdapter";
 
-    ArrayList<Coin> myArray;
+    ArrayList<CoinLoreResponse> myArray;
     RecyclerViewClickListener listener;
 
-    public MyAdapter(ArrayList<Coin> myArray, RecyclerViewClickListener listener) {
+    public MyAdapter(ArrayList<CoinLoreResponse> myArray, RecyclerViewClickListener listener) {
         this.myArray = myArray;
         this.listener = listener;
     }

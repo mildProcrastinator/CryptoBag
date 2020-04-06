@@ -20,6 +20,7 @@ public class DetailPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_page);
+
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         String coinName = (String) extras.get("currency");
@@ -36,11 +37,4 @@ public class DetailPage extends AppCompatActivity {
 
     }
 
-    public void searchCoin(View view) {
-        Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-        String currency = (String) extras.get("currency");
-        Intent implicitIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/search?q="+currency));
-        startActivity(implicitIntent);
-    }
 }

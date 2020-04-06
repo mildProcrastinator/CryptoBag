@@ -8,10 +8,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+
+import com.example.myapplication.Entities.CoinLoreResponse;
 
 import java.util.ArrayList;
 
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView.Adapter mAdapter;
     RecyclerView.LayoutManager layoutManager;
     /**Creating data set to populate list*/
-    ArrayList<Coin> coins = Coin.getCoins();
+    ArrayList<CoinLoreResponse> coins = CoinLoreResponse.getCoins();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        coins = Coin.getCoins();
+        coins = CoinLoreResponse.getCoins();
         Log.d(TAG, "onCreate: made array");
 
         recyclerView = (RecyclerView) findViewById(R.id.coin_list_view);

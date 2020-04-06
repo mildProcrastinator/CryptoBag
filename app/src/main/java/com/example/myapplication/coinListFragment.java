@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.myapplication.Entities.CoinLoreResponse;
+
 import java.text.NumberFormat;
 
 
@@ -39,7 +41,7 @@ public class coinListFragment extends Fragment {
 
         String cName = getArguments().getString("cName");
 
-        Coin displayedCoin = Coin.returnCoin(cName);
+        CoinLoreResponse displayedCoin = CoinLoreResponse.returnCoin(cName);
 
         NumberFormat coinCurrency = NumberFormat.getCurrencyInstance();
 
