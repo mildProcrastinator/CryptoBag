@@ -85,6 +85,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.itemView.setOnClickListener(mOnClickListener);
     }
 
+    public List<Coin> setCoins(List<Coin> coins) {
+        mCoins.clear();
+        int i = 0 ;
+        while (i < coins.size()){
+            mCoins.add(coins.get(i));
+            i++;
+        }
+        return mCoins;
+    }
+
     @Override
     public int getItemCount() {
         return mCoins.size();

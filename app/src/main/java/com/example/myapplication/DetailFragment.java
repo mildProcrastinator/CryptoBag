@@ -25,18 +25,25 @@ import java.util.List;
 public class DetailFragment extends Fragment {
     public static final String ARG_ITEM_ID = "item_id";
     private Coin mCoin;
-
+    static ArrayList<Coin> mCoins = new ArrayList();
     public DetailFragment(){}
 
+    public static void updateCoins(List<Coin> coinList){
+        mCoins.clear();
+        int i = 0;
+        while(i < coinList.size()){
+            mCoins.add(coinList.get(i));
+            i++;
+        }
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         if(getArguments().containsKey(ARG_ITEM_ID)) {
-            Gson gson = new Gson();
-            CoinLoreResponse response = gson.fromJson(CoinLoreResponse.json, CoinLoreResponse.class);
-            List<Coin> coins = response.getData();
-            for(Coin coin : coins) {
+
+
+            for(Coin coin : mCoins) {
                 if(coin.getId().equals(getArguments().getString(ARG_ITEM_ID))) {
                     mCoin = coin;
                 }

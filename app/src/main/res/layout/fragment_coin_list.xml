@@ -16,7 +16,7 @@
         app:layout_constraintHorizontal_bias="0.04"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/coinName"
-        app:layout_constraintVertical_bias="0.75"
+        app:layout_constraintVertical_bias="0.43"
         app:srcCompat="@drawable/ic_launcher_background" />
 
     <TextView
